@@ -1,0 +1,11 @@
+import java.util.*;
+class infinityloop
+{
+    public static void main(String arg[])
+    {
+    while(true)
+    {
+        System.out.println("Hello,This is Shannu");
+    }
+  }
+} 
