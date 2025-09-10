@@ -1,0 +1,13 @@
+import java.util.*;
+class test
+{
+    public static void main(String args[])
+    {
+        String[] Names = { "Mounika" , "Sai ", "Sruthi"};
+        for ( String name :Names)
+        {
+        System.out.println("name"+name);
+            
+        }
+    }
+}
