@@ -1,0 +1,33 @@
+import java.util.*;
+class test
+public static void main(String args[])
+{
+int a=3 , b=4 ;
+System.out.print ln( "A + B is equal to " + (a+b));
+system.out.print ln ("A - B is equal to " + (a-b));
+System.out.print ln ("A * B is equal to " + (a*b));
+
+System.out.print ln ("A is less than B " + (a<b));
+System.out.print ln("A greater than B " + (a>b));
+
+boolean x=true,y=false
+System.out.print ln ("x && y " , + ( x && y ));
+System.out.print ln ("x || y " , + ( x || y ));
+
+int max = (a > b) ? a : b;
+System.out.println("Maximum = " + max);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
