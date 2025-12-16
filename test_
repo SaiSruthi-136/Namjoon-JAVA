@@ -1,0 +1,76 @@
+import java.util.*;
+
+class Solution {
+    int n, budget;
+    int[] present, future;
+    List<Integer>[] tree;
+
+    int[][] dp0, dp1, dp2;
+
+    public int maxProfit(int n, int[] present, int[] future, int[][] hierarchy, int budget) {
+        this.n = n;
+        this.present = present;
+        this.future = future;
+        this.budget = budget;
+
+        tree = new ArrayList[n];
+        for (int i = 0; i < n; i++) tree[i] = new ArrayList<>();
+
+        for (int[] h : hierarchy) {
+            tree[h[0] - 1].add(h[1] - 1);
+        }
+
+        dp0 = new int[n][budget + 1];
+        dp1 = new int[n][budget + 1];
+        dp2 = new int[n][budget + 1];
+
+        dfs(0);
+
+        int ans = 0;
+        for (int c = 0; c <= budget; c++) {
+            ans = Math.max(ans, Math.max(dp0[0][c], dp1[0][c]));
+        }
+        return ans;
+    }
+
+    void dfs(int u) {
+        Arrays.fill(dp0[u], -1);
+        Arrays.fill(dp1[u], -1);
+        Arrays.fill(dp2[u], -1);
+
+        dp0[u][0] = 0;
+
+        int fullCost = present[u];
+        int discCost = present[u] / 2;
+
+        if (fullCost <= budget)
+            dp1[u][fullCost] = future[u] - fullCost;
+
+        if (discCost <= budget)
+            dp2[u][discCost] = future[u] - discCost;
+
+        for (int v : tree[u]) {
+            dfs(v);
+
+            dp0[u] = merge(dp0[u], dp0[v], dp1[v]);
+            dp1[u] = merge(dp1[u], dp0[v], dp2[v]);
+            dp2[u] = merge(dp2[u], dp0[v], dp2[v]);
+        }
+    }
+
+    int[] merge(int[] base, int[] child0, int[] child1) {
+        int[] res = new int[budget + 1];
+        Arrays.fill(res, -1);
+
+        for (int i = 0; i <= budget; i++) {
+            if (base[i] < 0) continue;
+            for (int j = 0; i + j <= budget; j++) {
+                if (child0[j] >= 0)
+                    res[i + j] = Math.max(res[i + j], base[i] + child0[j]);
+                if (child1[j] >= 0)
+                    res[i + j] = Math.max(res[i + j], base[i] + child1[j]);
+            }
+        }
+        return res;
+    }
+}
