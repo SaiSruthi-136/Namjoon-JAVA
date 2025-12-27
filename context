@@ -1,0 +1,33 @@
+import java.util.*;
+import java.math.BigDecimal;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        String[] numbers = new String[n];
+
+        // Read input numbers as strings
+        for (int i = 0; i < n; i++) {
+            numbers[i] = sc.next();
+        }
+
+        // Sort with BigDecimal, descending order
+        Arrays.sort(numbers, new Comparator<String>() {
+            @Override
+            public int compare(String a, String b) {
+                BigDecimal A = new BigDecimal(a);
+                BigDecimal B = new BigDecimal(b);
+                // Descending order
+                return B.compareTo(A);
+            }
+        });
+
+        // Print the sorted numbers in original string format
+        for (String num : numbers) {
+            System.out.println(num);
+        }
+
+        sc.close();
+    }
+}
