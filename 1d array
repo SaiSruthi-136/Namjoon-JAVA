@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Solution {
+
+    static boolean canWin(int leap, int[] game) {
+        return dfs(0, leap, game);
+    }
+
+    static boolean dfs(int i, int leap, int[] game) {
+        // Win condition
+        if (i >= game.length) return true;
+
+        // Invalid move
+        if (i < 0 || game[i] == 1) return false;
+
+        // Mark visited
+        game[i] = 1;
+
+        // Try all possible moves
+        return dfs(i + leap, leap, game) ||
+               dfs(i + 1, leap, game) ||
+               dfs(i - 1, leap, game);
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+
+        int q = scan.nextInt(); // number of queries
+        while (q-- > 0) {
+            int n = scan.nextInt();
+            int leap = scan.nextInt();
+
+            int[] game = new int[n];
+            for (int i = 0; i < n; i++) {
+                game[i] = scan.nextInt();
+            }
+
+            System.out.println(canWin(leap, game) ? "YES" : "NO");
+        }
+
+        scan.close();
+    }
+}
